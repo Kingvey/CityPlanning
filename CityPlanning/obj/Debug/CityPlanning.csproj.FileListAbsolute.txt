@@ -1,0 +1,14 @@
+D:\Develop\GitHub\CityPlanning\CityPlanning\bin\Debug\EconomicZone.exe
+D:\Develop\GitHub\CityPlanning\CityPlanning\bin\Debug\EconomicZone.pdb
+D:\Develop\GitHub\CityPlanning\CityPlanning\bin\Debug\ConnectionCenter.dll
+D:\Develop\GitHub\CityPlanning\CityPlanning\bin\Debug\ConnectionCenter.pdb
+D:\Develop\GitHub\CityPlanning\CityPlanning\obj\Debug\CityPlanning.csprojResolveAssemblyReference.cache
+D:\Develop\GitHub\CityPlanning\CityPlanning\obj\Debug\EconomicZone.frmStartConnectionConfig.resources
+D:\Develop\GitHub\CityPlanning\CityPlanning\obj\Debug\EconomicZone.MainForm.resources
+D:\Develop\GitHub\CityPlanning\CityPlanning\obj\Debug\EconomicZone.Modules.ucNavigationFiles.resources
+D:\Develop\GitHub\CityPlanning\CityPlanning\obj\Debug\EconomicZone.Modules.ucNavigationRDB.resources
+D:\Develop\GitHub\CityPlanning\CityPlanning\obj\Debug\EconomicZone.Properties.Resources.resources
+D:\Develop\GitHub\CityPlanning\CityPlanning\obj\Debug\CityPlanning.csproj.GenerateResource.Cache
+D:\Develop\GitHub\CityPlanning\CityPlanning\obj\Debug\EconomicZone.exe.licenses
+D:\Develop\GitHub\CityPlanning\CityPlanning\obj\Debug\EconomicZone.exe
+D:\Develop\GitHub\CityPlanning\CityPlanning\obj\Debug\EconomicZone.pdb
