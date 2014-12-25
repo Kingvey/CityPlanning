@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using DevExpress.LookAndFeel;
 
-namespace EconomicZone
+namespace CityPlanning
 {
     static class Program
     {

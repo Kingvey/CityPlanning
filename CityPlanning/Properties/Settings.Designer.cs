@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EconomicZone.Properties {
+namespace CityPlanning.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

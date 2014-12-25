@@ -8,13 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace EconomicZone.Modules
+namespace CityPlanning.Modules
 {
     public partial class ucNavigationRDB : UserControl
     {
         public ucNavigationRDB()
         {
             InitializeComponent();
+        }
+
+        public DevExpress.XtraTreeList.TreeList TreeList
+        {
+            get { return this.TreeListTables; }
+            //set { this.treeList1 = value; }
         }
     }
 }

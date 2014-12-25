@@ -13,16 +13,24 @@ using DevExpress.Skins;
 using DevExpress.LookAndFeel;
 using DevExpress.UserSkins;
 
+using DevExpress.XtraTab;
+
 //本项目解决方案
 using ConnectionCenter;
 
-namespace EconomicZone
+namespace CityPlanning
 {
     public partial class MainForm : RibbonForm
     {
         #region //变量声明
+        
+        
+        //自定义类声明
+
+        //模块定义
         public Modules.ucNavigationRDB ucNaviRDB = new Modules.ucNavigationRDB();
         public Modules.ucNavigationFiles ucNaviFiles = new Modules.ucNavigationFiles();
+
         #endregion
 
         //
@@ -31,14 +39,19 @@ namespace EconomicZone
             InitializeComponent();
             InitComponent();
             //InitSkinGallery();
-
         }
         //窗体初始化函数
         private void MainForm_Load(object sender, EventArgs e)
         {
             //启动界面
-            //frmStartConnectionConfig fscc = new frmStartConnectionConfig(this);
-            //fscc.ShowDialog();
+            frmStartConnectionConfig fscc = new frmStartConnectionConfig(this);
+            fscc.ShowDialog();
+        }
+
+        //初始化连接,由初始化界面调用
+        public void InitConnection()
+        {
+            
         }
 
         //初始化控件
@@ -66,9 +79,11 @@ namespace EconomicZone
 
         #region //主页Ribbon按钮事件
         //连接配置
-        private void barBtn_ConnectConfig_ItemClick(object sender, ItemClickEventArgs e)
+        private void bConnectConfig_ItemClick(object sender, ItemClickEventArgs e)
         {
-
+            //启动界面
+            frmStartConnectionConfig fscc = new frmStartConnectionConfig(null);
+            fscc.ShowDialog();
         }
         
         //空间数据库
@@ -81,14 +96,48 @@ namespace EconomicZone
         {
             this.panelControl_Navigation.Controls.Clear();
             this.panelControl_Navigation.Controls.Add(ucNaviRDB);
+
+            DataTable dt = SQLServerConnection.GetDatabaseSchema();
+            if (dt == null)
+            {
+                return;
+            }
+            if (dt.Rows.Count == 0)
+            {
+                return;
+            }
+            this.ucNaviRDB.TreeList.KeyFieldName = "id";     //主要显示内容
+            this.ucNaviRDB.TreeList.ParentFieldName = "TABLE_CATALOG";     //目录
+            this.ucNaviRDB.TreeList.DataSource = dt;    //数据库
+            DevExpress.XtraTreeList.Columns.TreeListColumnCollection col = this.ucNaviRDB.TreeList.Columns;
+            this.ucNaviRDB.TreeList.Columns["TABLE_NAME"].SortOrder = SortOrder.Ascending;      //排序
+            //显示内容
+            for (int i = 0; i < ucNaviRDB.TreeList.Columns.Count; i++)
+            {
+                if (ucNaviRDB.TreeList.Columns[i].FieldName != "TABLE_NAME")
+                {
+                    ucNaviRDB.TreeList.Columns[i].Visible = false;
+                }
+            }
+
+
+
         }
         //文档
         private void bGalleryDocument_ItemClick(object sender, ItemClickEventArgs e)
         {
             this.panelControl_Navigation.Controls.Clear();            
             this.panelControl_Navigation.Controls.Add(ucNaviFiles);
-            string path = "D:\\dev - Design";
-            DataTable dt = ConnectionCenter.ConnLocalDisk.getDataTable(path);            
+            string path = FTPConnection.FtpIP;
+            DataTable dt = ConnectionCenter.ConnLocalDisk.getDataTable(path);
+            if (dt == null)
+            {
+                return;
+            }
+            if (dt.Rows.Count == 0)
+            {
+                return;
+            }
             ucNaviFiles.TreeList.KeyFieldName = "id";
             ucNaviFiles.TreeList.ParentFieldName = "pid";
             ucNaviFiles.TreeList.DataSource = dt;
@@ -118,6 +167,22 @@ namespace EconomicZone
         }
         #endregion
 
+        private void barButtonItem2_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            XtraTabPage xtp = new XtraTabPage();
+            this.xtraTabControl_Main.TabPages.Add(xtp);
+
+            DevExpress.XtraRichEdit.RichEditControl rec = new DevExpress.XtraRichEdit.RichEditControl();
+            rec.Dock = DockStyle.Fill;
+            xtp.Controls.Add(rec);
+
+
+            //Modules.TabPicture tabPic = new Modules.TabPicture();
+            //tabPic.Dock = DockStyle.Fill;
+            //xtp.Controls.Add(tabPic);
+        }
+
+       
 
     }
 }

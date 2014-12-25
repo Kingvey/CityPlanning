@@ -1,4 +1,4 @@
-﻿namespace EconomicZone
+﻿namespace CityPlanning
 {
     partial class MainForm
     {
@@ -288,6 +288,7 @@
             this.functionsCubeItem1 = new DevExpress.XtraSpreadsheet.UI.FunctionsCubeItem();
             this.functionsInformationItem1 = new DevExpress.XtraSpreadsheet.UI.FunctionsInformationItem();
             this.functionsCompatibilityItem1 = new DevExpress.XtraSpreadsheet.UI.FunctionsCompatibilityItem();
+            this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonImageCollectionLarge = new DevExpress.Utils.ImageCollection(this.components);
             this.ribbonPageCategory_map = new DevExpress.XtraBars.Ribbon.RibbonPageCategory();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
@@ -315,6 +316,8 @@
             this.pageSetupRibbonPageGroup1 = new DevExpress.XtraRichEdit.UI.PageSetupRibbonPageGroup();
             this.pageBackgroundRibbonPageGroup1 = new DevExpress.XtraRichEdit.UI.PageBackgroundRibbonPageGroup();
             this.ribbonPageCategory_xls = new DevExpress.XtraBars.Ribbon.RibbonPageCategory();
+            this.ribbonPage2 = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            this.ribbonPageGroup5 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.fileRibbonPage2 = new DevExpress.XtraSpreadsheet.UI.FileRibbonPage();
             this.commonRibbonPageGroup2 = new DevExpress.XtraSpreadsheet.UI.CommonRibbonPageGroup();
             this.homeRibbonPage2 = new DevExpress.XtraSpreadsheet.UI.HomeRibbonPage();
@@ -358,6 +361,8 @@
             this.spreadsheetCommandBarButtonItem77 = new DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarButtonItem();
             this.spreadsheetCommandBarButtonItem78 = new DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarButtonItem();
             this.spreadsheetCommandBarButtonItem79 = new DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandBarButtonItem();
+            this.ribbonPageGroup6 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.appMenu)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonImageCollection)).BeginInit();
@@ -672,10 +677,12 @@
             this.functionsEngineeringItem1,
             this.functionsCubeItem1,
             this.functionsInformationItem1,
-            this.functionsCompatibilityItem1});
+            this.functionsCompatibilityItem1,
+            this.barButtonItem1,
+            this.barButtonItem2});
             this.ribbonControl.LargeImages = this.ribbonImageCollectionLarge;
             this.ribbonControl.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl.MaxItemId = 665;
+            this.ribbonControl.MaxItemId = 667;
             this.ribbonControl.Name = "ribbonControl";
             this.ribbonControl.PageCategories.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageCategory[] {
             this.ribbonPageCategory_map,
@@ -728,17 +735,18 @@
             // 
             this.bConnectConfig.Caption = "连接配置";
             this.bConnectConfig.CategoryGuid = new System.Guid("6ffddb2b-9015-4d97-a4c1-91613e0ef537");
-            this.bConnectConfig.Glyph = global::EconomicZone.Properties.Resources.Config_64;
+            this.bConnectConfig.Glyph = global::CityPlanning.Properties.Resources.Config_64;
             this.bConnectConfig.Id = 62;
             this.bConnectConfig.Name = "bConnectConfig";
             this.bConnectConfig.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
             | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
+            this.bConnectConfig.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bConnectConfig_ItemClick);
             // 
             // bGalleryGeodatabase
             // 
             this.bGalleryGeodatabase.Caption = "空间数据";
             this.bGalleryGeodatabase.CategoryGuid = new System.Guid("6ffddb2b-9015-4d97-a4c1-91613e0ef537");
-            this.bGalleryGeodatabase.Glyph = global::EconomicZone.Properties.Resources.esri_64;
+            this.bGalleryGeodatabase.Glyph = global::CityPlanning.Properties.Resources.esri_64;
             this.bGalleryGeodatabase.Id = 63;
             this.bGalleryGeodatabase.Name = "bGalleryGeodatabase";
             this.bGalleryGeodatabase.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
@@ -749,7 +757,7 @@
             // 
             this.bGalleryRelationalDatabase.Caption = "关系数据";
             this.bGalleryRelationalDatabase.CategoryGuid = new System.Guid("6ffddb2b-9015-4d97-a4c1-91613e0ef537");
-            this.bGalleryRelationalDatabase.Glyph = global::EconomicZone.Properties.Resources.relationalDatabase_64;
+            this.bGalleryRelationalDatabase.Glyph = global::CityPlanning.Properties.Resources.relationalDatabase_64;
             this.bGalleryRelationalDatabase.Id = 65;
             this.bGalleryRelationalDatabase.Name = "bGalleryRelationalDatabase";
             this.bGalleryRelationalDatabase.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
@@ -759,7 +767,7 @@
             // bGalleryDocument
             // 
             this.bGalleryDocument.Caption = "规划文档";
-            this.bGalleryDocument.Glyph = global::EconomicZone.Properties.Resources.document_64;
+            this.bGalleryDocument.Glyph = global::CityPlanning.Properties.Resources.document_64;
             this.bGalleryDocument.Id = 66;
             this.bGalleryDocument.Name = "bGalleryDocument";
             this.bGalleryDocument.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
@@ -769,7 +777,7 @@
             // bGallery3DMap
             // 
             this.bGallery3DMap.Caption = "三维地图";
-            this.bGallery3DMap.Glyph = global::EconomicZone.Properties.Resources.Globe_64;
+            this.bGallery3DMap.Glyph = global::CityPlanning.Properties.Resources.Globe_64;
             this.bGallery3DMap.Id = 67;
             this.bGallery3DMap.Name = "bGallery3DMap";
             this.bGallery3DMap.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
@@ -779,7 +787,7 @@
             // bGalleryOpenMap
             // 
             this.bGalleryOpenMap.Caption = "打开地图";
-            this.bGalleryOpenMap.Glyph = global::EconomicZone.Properties.Resources.openMap_64;
+            this.bGalleryOpenMap.Glyph = global::CityPlanning.Properties.Resources.openMap_64;
             this.bGalleryOpenMap.Id = 426;
             this.bGalleryOpenMap.Name = "bGalleryOpenMap";
             this.bGalleryOpenMap.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
@@ -788,7 +796,7 @@
             // bMapAddLayer
             // 
             this.bMapAddLayer.Caption = "添加图层";
-            this.bMapAddLayer.Glyph = global::EconomicZone.Properties.Resources.map_641;
+            this.bMapAddLayer.Glyph = global::CityPlanning.Properties.Resources.map_641;
             this.bMapAddLayer.Id = 427;
             this.bMapAddLayer.Name = "bMapAddLayer";
             this.bMapAddLayer.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
@@ -797,7 +805,7 @@
             // bMapOutput
             // 
             this.bMapOutput.Caption = "输出地图";
-            this.bMapOutput.Glyph = global::EconomicZone.Properties.Resources.exportMap_64;
+            this.bMapOutput.Glyph = global::CityPlanning.Properties.Resources.exportMap_64;
             this.bMapOutput.Id = 428;
             this.bMapOutput.Name = "bMapOutput";
             this.bMapOutput.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
@@ -806,7 +814,7 @@
             // bMapPan
             // 
             this.bMapPan.Caption = "平移";
-            this.bMapPan.Glyph = global::EconomicZone.Properties.Resources.icon_pan_32;
+            this.bMapPan.Glyph = global::CityPlanning.Properties.Resources.icon_pan_32;
             this.bMapPan.Id = 429;
             this.bMapPan.Name = "bMapPan";
             this.bMapPan.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
@@ -815,7 +823,7 @@
             // bMapZoomIn
             // 
             this.bMapZoomIn.Caption = "放大";
-            this.bMapZoomIn.Glyph = global::EconomicZone.Properties.Resources.zoomIn_32;
+            this.bMapZoomIn.Glyph = global::CityPlanning.Properties.Resources.zoomIn_32;
             this.bMapZoomIn.Id = 430;
             this.bMapZoomIn.Name = "bMapZoomIn";
             this.bMapZoomIn.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
@@ -824,7 +832,7 @@
             // bMapZoomOut
             // 
             this.bMapZoomOut.Caption = "缩小";
-            this.bMapZoomOut.Glyph = global::EconomicZone.Properties.Resources.zoomOut_32;
+            this.bMapZoomOut.Glyph = global::CityPlanning.Properties.Resources.zoomOut_32;
             this.bMapZoomOut.Id = 431;
             this.bMapZoomOut.Name = "bMapZoomOut";
             this.bMapZoomOut.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
@@ -833,7 +841,7 @@
             // bMapFullExtent
             // 
             this.bMapFullExtent.Caption = "全图";
-            this.bMapFullExtent.Glyph = global::EconomicZone.Properties.Resources.fullExtent_32;
+            this.bMapFullExtent.Glyph = global::CityPlanning.Properties.Resources.fullExtent_32;
             this.bMapFullExtent.Id = 432;
             this.bMapFullExtent.Name = "bMapFullExtent";
             this.bMapFullExtent.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
@@ -842,7 +850,7 @@
             // bMapScaleIn
             // 
             this.bMapScaleIn.Caption = "逐级放大";
-            this.bMapScaleIn.Glyph = global::EconomicZone.Properties.Resources.scaleIn_32;
+            this.bMapScaleIn.Glyph = global::CityPlanning.Properties.Resources.scaleIn_32;
             this.bMapScaleIn.Id = 433;
             this.bMapScaleIn.Name = "bMapScaleIn";
             this.bMapScaleIn.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
@@ -851,7 +859,7 @@
             // bMapScaleOut
             // 
             this.bMapScaleOut.Caption = "逐级缩小";
-            this.bMapScaleOut.Glyph = global::EconomicZone.Properties.Resources.scaleOut_32;
+            this.bMapScaleOut.Glyph = global::CityPlanning.Properties.Resources.scaleOut_32;
             this.bMapScaleOut.Id = 434;
             this.bMapScaleOut.Name = "bMapScaleOut";
             this.bMapScaleOut.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
@@ -860,7 +868,7 @@
             // bMapQueryByPoint
             // 
             this.bMapQueryByPoint.Caption = "点选查询";
-            this.bMapQueryByPoint.Glyph = global::EconomicZone.Properties.Resources.query_32;
+            this.bMapQueryByPoint.Glyph = global::CityPlanning.Properties.Resources.query_32;
             this.bMapQueryByPoint.Id = 435;
             this.bMapQueryByPoint.Name = "bMapQueryByPoint";
             this.bMapQueryByPoint.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
@@ -869,7 +877,7 @@
             // bHelp
             // 
             this.bHelp.Caption = "帮助";
-            this.bHelp.Glyph = global::EconomicZone.Properties.Resources.Help_64;
+            this.bHelp.Glyph = global::CityPlanning.Properties.Resources.Help_64;
             this.bHelp.Id = 436;
             this.bHelp.Name = "bHelp";
             this.bHelp.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
@@ -878,7 +886,7 @@
             // bAboutUs
             // 
             this.bAboutUs.Caption = "关于";
-            this.bAboutUs.Glyph = global::EconomicZone.Properties.Resources.aboutUs_64;
+            this.bAboutUs.Glyph = global::CityPlanning.Properties.Resources.aboutUs_64;
             this.bAboutUs.Id = 437;
             this.bAboutUs.Name = "bAboutUs";
             this.bAboutUs.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
@@ -2402,6 +2410,13 @@
             this.functionsCompatibilityItem1.Id = 664;
             this.functionsCompatibilityItem1.Name = "functionsCompatibilityItem1";
             // 
+            // barButtonItem1
+            // 
+            this.barButtonItem1.Caption = "barButtonItem1";
+            this.barButtonItem1.CategoryGuid = new System.Guid("6ffddb2b-9015-4d97-a4c1-91613e0ef537");
+            this.barButtonItem1.Id = 665;
+            this.barButtonItem1.Name = "barButtonItem1";
+            // 
             // ribbonImageCollectionLarge
             // 
             this.ribbonImageCollectionLarge.ImageSize = new System.Drawing.Size(32, 32);
@@ -2622,11 +2637,25 @@
             this.ribbonPageCategory_xls.Color = System.Drawing.Color.Empty;
             this.ribbonPageCategory_xls.Name = "ribbonPageCategory_xls";
             this.ribbonPageCategory_xls.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
+            this.ribbonPage2,
             this.fileRibbonPage2,
             this.homeRibbonPage2,
             this.insertRibbonPage2,
             this.formulasRibbonPage1});
-            this.ribbonPageCategory_xls.Text = "表格";
+            this.ribbonPageCategory_xls.Text = "关系数据库";
+            // 
+            // ribbonPage2
+            // 
+            this.ribbonPage2.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
+            this.ribbonPageGroup5});
+            this.ribbonPage2.Name = "ribbonPage2";
+            this.ribbonPage2.Text = "统计图表";
+            // 
+            // ribbonPageGroup5
+            // 
+            this.ribbonPageGroup5.ItemLinks.Add(this.barButtonItem1);
+            this.ribbonPageGroup5.Name = "ribbonPageGroup5";
+            this.ribbonPageGroup5.Text = "输出";
             // 
             // fileRibbonPage2
             // 
@@ -2750,7 +2779,8 @@
             this.homeRibbonPage.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.ribbonPageGroup_Config,
             this.ribbonPageGroup_PlanData,
-            this.helpRibbonPageGroup});
+            this.helpRibbonPageGroup,
+            this.ribbonPageGroup6});
             this.homeRibbonPage.Name = "homeRibbonPage";
             this.homeRibbonPage.Text = "主页";
             // 
@@ -3172,6 +3202,19 @@
             this.spreadsheetCommandBarButtonItem79.Id = -1;
             this.spreadsheetCommandBarButtonItem79.Name = "spreadsheetCommandBarButtonItem79";
             // 
+            // ribbonPageGroup6
+            // 
+            this.ribbonPageGroup6.ItemLinks.Add(this.barButtonItem2);
+            this.ribbonPageGroup6.Name = "ribbonPageGroup6";
+            this.ribbonPageGroup6.Text = "测试";
+            // 
+            // barButtonItem2
+            // 
+            this.barButtonItem2.Caption = "barButtonItem2";
+            this.barButtonItem2.Id = 666;
+            this.barButtonItem2.Name = "barButtonItem2";
+            this.barButtonItem2.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem2_ItemClick);
+            // 
             // MainForm
             // 
             this.AllowFormGlass = DevExpress.Utils.DefaultBoolean.False;
@@ -3545,6 +3588,11 @@
         private DevExpress.XtraBars.Ribbon.RibbonPageCategory ribbonPageCategory_doc;
         private DevExpress.XtraBars.Ribbon.RibbonPageCategory ribbonPageCategory_xls;
         private DevExpress.XtraEditors.PanelControl panelControl_Navigation;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem1;
+        private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage2;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup5;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem2;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup6;
 
     }
 }

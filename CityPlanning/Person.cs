@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EconomicZone {
+namespace CityPlanning {
     class Person {
         string firstName;
         string secondName;

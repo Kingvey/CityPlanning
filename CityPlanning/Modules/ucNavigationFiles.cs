@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using DevExpress.XtraTreeList;
 //using DevExpress.Data.Filtering;
 
-namespace EconomicZone.Modules
+namespace CityPlanning.Modules
 {    
     public partial class ucNavigationFiles : UserControl
     {
@@ -26,14 +26,14 @@ namespace EconomicZone.Modules
 
         private void Init()
         {            
-            this.treeList1.OptionsBehavior.EnableFiltering = true;
-            treeList1.OptionsFilter.FilterMode = FilterMode.Smart;
+            this.TreeList.OptionsBehavior.EnableFiltering = true;
+            TreeList.OptionsFilter.FilterMode = FilterMode.Smart;
 
         }
 
         public DevExpress.XtraTreeList.TreeList TreeList
         {
-            get { return this.treeList1; }
+            get { return this.TreeListFiles; }
             //set { this.treeList1 = value; }
         }
 
@@ -43,9 +43,9 @@ namespace EconomicZone.Modules
             //DevExpress.XtraTreeList.Nodes.TreeListNode fNode = treeList1.FocusedNode;
             //DevExpress.XtraTreeList.Columns.TreeListColumn fColumn = treeList1.FocusedColumn;
             
-                string filterText = this.textEdit_Filter.Text.Trim();
-                FilterCondition fc = new FilterCondition(FilterConditionEnum.Equals, this.treeList1.Columns["name"], filterText);
-                treeList1.FilterConditions.Add(fc);
+                string filterText = this.TextEdit_Filter.Text.Trim();
+                FilterCondition fc = new FilterCondition(FilterConditionEnum.Equals, this.TreeList.Columns["name"], filterText);
+                TreeList.FilterConditions.Add(fc);
                 //BinaryOperator bo = new BinaryOperator("name", filterText, BinaryOperatorType.Like);
                 //this.treeList1.Columns["name"].MRUFilters.Add(new TreeListFilterInfo(bo));
             
