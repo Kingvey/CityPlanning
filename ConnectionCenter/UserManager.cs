@@ -11,6 +11,12 @@ namespace ConnectionCenter
 
         private static string sysUserName;
         private static string sysPassword;
+
+
+
+
+
+
         //用户
         public static string SysUserName
         {
