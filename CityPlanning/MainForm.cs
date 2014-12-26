@@ -14,6 +14,11 @@ using DevExpress.LookAndFeel;
 using DevExpress.UserSkins;
 
 using DevExpress.XtraTab;
+using DevExpress.XtraTreeList;
+using DevExpress.XtraSpreadsheet;
+using DevExpress.Spreadsheet;
+//using DevExpress.Docs;          //Worksheet专用
+
 
 //本项目解决方案
 using ConnectionCenter;
@@ -59,6 +64,9 @@ namespace CityPlanning
         {
             ucNaviFiles.Dock = DockStyle.Fill;
             ucNaviRDB.Dock = DockStyle.Fill;
+
+            this.ucNaviRDB.TreeList.DoubleClick += ucNaviRDB_TreeList_DoubleClick;
+
         }
         void InitSkinGallery()
         {
@@ -167,22 +175,51 @@ namespace CityPlanning
         }
         #endregion
 
-        private void barButtonItem2_ItemClick(object sender, ItemClickEventArgs e)
+        #region //数据库相关
+        private void ucNaviRDB_TreeList_DoubleClick(object sender, EventArgs e)
         {
-            XtraTabPage xtp = new XtraTabPage();
-            this.xtraTabControl_Main.TabPages.Add(xtp);
+            try
+            {
+                TreeList tree = sender as TreeList;
+                TreeListHitInfo hi = tree.CalcHitInfo(tree.PointToClient(Control.MousePosition));
+                if (hi.Node != null)
+                {
+                    string nodeName = (string)hi.Node["TABLE_NAME"];
+                    DataTable dt = SQLServerConnection.GetDataByTableName(nodeName);
+                    if(dt == null)
+                    {
+                        MessageBox.Show("获取数据失败。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                    //表格控件
+                    SpreadsheetControl ssc = new SpreadsheetControl();
+                    IWorkbook workbook = ssc.Document;
+                    workbook.BeginUpdate();
+                    Worksheet worksheet = workbook.Worksheets[0];
+                    worksheet.Name = nodeName;
+                    worksheet.Import(dt,true, 0, 0);        //import方法需要添加DevExpress.Docs命名空间
+                    workbook.EndUpdate();
+                    //TabPage
+                    XtraTabPage xtp = new XtraTabPage();
+                    xtp.Text = nodeName;
+                    xtp.Controls.Add(ssc);
+                    ssc.Dock = DockStyle.Fill;
+                    this.xtraTabControl_Main.TabPages.Add(xtp);
+                    this.xtraTabControl_Main.SelectedTabPage = xtp;
 
-            DevExpress.XtraRichEdit.RichEditControl rec = new DevExpress.XtraRichEdit.RichEditControl();
-            rec.Dock = DockStyle.Fill;
-            xtp.Controls.Add(rec);
+                    ssc.Refresh();
+                    xtp.Refresh();
+                    this.xtraTabControl_Main.Refresh();
+                    this.Refresh();
 
-
-            //Modules.TabPicture tabPic = new Modules.TabPicture();
-            //tabPic.Dock = DockStyle.Fill;
-            //xtp.Controls.Add(tabPic);
+                }
+            }
+            catch
+            {
+            }
         }
+        #endregion
 
-       
 
     }
 }

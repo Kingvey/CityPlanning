@@ -90,6 +90,39 @@ namespace ConnectionCenter
             return dtSchema;
         }
 
+        public static DataTable GetDataByTableName(string tableName)
+        {
+            DataTable dtData = new DataTable();
+
+            SqlConnection conn = GetSQLConnection();
+            if (conn == null)
+            {
+                dtData = null;
+                return dtData;
+            }
+            try
+            {
+                conn.Open();
+                //SQL语句
+                string sqlStr = "SELECT * FROM "+tableName;
+
+                SqlDataAdapter da = new SqlDataAdapter(sqlStr, conn);
+                DataSet ds = new DataSet();
+                da.Fill(ds, "TableList");
+                dtData = ds.Tables[0];
+            }
+            catch
+            {
+                dtData = null;
+                MessageBox.Show("获取数据库列表失败。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return dtData;
+        }
+
 
 
 
