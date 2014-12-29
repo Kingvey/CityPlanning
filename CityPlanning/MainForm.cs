@@ -127,9 +127,6 @@ namespace CityPlanning
                     ucNaviRDB.TreeList.Columns[i].Visible = false;
                 }
             }
-
-
-
         }
         //文档
         private void bGalleryDocument_ItemClick(object sender, ItemClickEventArgs e)
@@ -164,9 +161,6 @@ namespace CityPlanning
                     ucNaviFiles.TreeList.Columns[i].Visible = false;
                 }
             }
-
-
-            
         }
         //三维地图
         private void bGallery3DMap_ItemClick(object sender, ItemClickEventArgs e)
@@ -175,7 +169,7 @@ namespace CityPlanning
         }
         #endregion
 
-        #region //数据库相关
+        #region //左侧导航栏事件
         private void ucNaviRDB_TreeList_DoubleClick(object sender, EventArgs e)
         {
             try
@@ -183,8 +177,16 @@ namespace CityPlanning
                 TreeList tree = sender as TreeList;
                 TreeListHitInfo hi = tree.CalcHitInfo(tree.PointToClient(Control.MousePosition));
                 if (hi.Node != null)
-                {
+                {                    
                     string nodeName = (string)hi.Node["TABLE_NAME"];
+                    //如果已经有这个tabPage
+                    XtraTabPage ifTabPage = ComponentOperator.IfHasTabPage(nodeName, this.xtraTabControl_Main);
+                    if (ifTabPage != null)
+                    {
+                        this.xtraTabControl_Main.SelectedTabPage = ifTabPage;
+                        return;
+                    }
+                    //如果不包含该TabPage，则新建
                     DataTable dt = SQLServerConnection.GetDataByTableName(nodeName);
                     if(dt == null)
                     {
@@ -192,7 +194,7 @@ namespace CityPlanning
                         return;
                     }
                     //表格控件
-                    SpreadsheetControl ssc = new SpreadsheetControl();
+                    SpreadsheetControl ssc = new SpreadsheetControl();                    
                     IWorkbook workbook = ssc.Document;
                     workbook.BeginUpdate();
                     Worksheet worksheet = workbook.Worksheets[0];
@@ -200,7 +202,7 @@ namespace CityPlanning
                     worksheet.Import(dt,true, 0, 0);        //import方法需要添加DevExpress.Docs命名空间
                     workbook.EndUpdate();
                     //TabPage
-                    XtraTabPage xtp = new XtraTabPage();
+                    XtraTabPage xtp = new XtraTabPage();                    
                     xtp.Text = nodeName;
                     xtp.Controls.Add(ssc);
                     ssc.Dock = DockStyle.Fill;
@@ -211,8 +213,29 @@ namespace CityPlanning
                     xtp.Refresh();
                     this.xtraTabControl_Main.Refresh();
                     this.Refresh();
-
                 }
+            }
+            catch
+            {
+            }
+        }
+        #endregion
+
+        #region //主显示区事件
+        private void xtraTabControl_Main_CloseButtonClick(object sender, EventArgs e)
+        {            
+            try
+            {
+                if (this.xtraTabControl_Main.SelectedTabPage.Text == this.xtraTabPage_Home.Text)
+                {
+                    return; //如果是关闭主页，则返回
+                }
+                XtraTabPage tabPage = this.xtraTabControl_Main.SelectedTabPage;
+                //int tabIndex = this.xtraTabControl_Main.SelectedTabPageIndex;
+                this.xtraTabControl_Main.SelectedTabPageIndex -= 1;
+                this.xtraTabControl_Main.TabPages.Remove(tabPage);
+                tabPage.Dispose();
+                GC.Collect();
             }
             catch
             {
