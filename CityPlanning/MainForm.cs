@@ -13,22 +13,30 @@ using DevExpress.Skins;
 using DevExpress.LookAndFeel;
 using DevExpress.UserSkins;
 
+using System.IO;
+
 using DevExpress.XtraTab;
 using DevExpress.XtraTreeList;
 using DevExpress.XtraSpreadsheet;
 using DevExpress.Spreadsheet;
+using DevExpress.XtraRichEdit;
 //using DevExpress.Docs;          //Worksheet专用
+
+using ESRI.ArcGIS.Controls;
 
 
 //本项目解决方案
 using ConnectionCenter;
+using GISManager;
+using DocumentManager;
+using StatisticChart;
 
 namespace CityPlanning
 {
     public partial class MainForm : RibbonForm
     {
         #region //变量声明
-        
+        private AxMapControl curAxMapControl = null;
         
         //自定义类声明
 
@@ -38,7 +46,7 @@ namespace CityPlanning
 
         #endregion
 
-        //
+        #region //初始化函数
         public MainForm()
         {
             InitializeComponent();
@@ -66,13 +74,15 @@ namespace CityPlanning
             ucNaviRDB.Dock = DockStyle.Fill;
 
             this.ucNaviRDB.TreeList.DoubleClick += ucNaviRDB_TreeList_DoubleClick;
+            this.ucNaviFiles.TreeList.DoubleClick += ucNaviFiles_TreeList_DoubleClick;
 
         }
         void InitSkinGallery()
         {
             //SkinHelper.InitSkinGallery(rgbiSkins, true);
         }
-        
+        #endregion
+
         #region //关于
         private void iAbout_ItemClick(object sender, ItemClickEventArgs e)
         {
@@ -170,6 +180,7 @@ namespace CityPlanning
         #endregion
 
         #region //左侧导航栏事件
+        //关系数据库导航栏双击事件
         private void ucNaviRDB_TreeList_DoubleClick(object sender, EventArgs e)
         {
             try
@@ -208,7 +219,7 @@ namespace CityPlanning
                     ssc.Dock = DockStyle.Fill;
                     this.xtraTabControl_Main.TabPages.Add(xtp);
                     this.xtraTabControl_Main.SelectedTabPage = xtp;
-
+                    
                     ssc.Refresh();
                     xtp.Refresh();
                     this.xtraTabControl_Main.Refresh();
@@ -219,9 +230,113 @@ namespace CityPlanning
             {
             }
         }
+        //文件数据导航栏双击事件
+        private void ucNaviFiles_TreeList_DoubleClick(object sender, EventArgs e)
+        {
+            TreeList tree = sender as TreeList;
+            TreeListHitInfo hi = tree.CalcHitInfo(tree.PointToClient(Control.MousePosition));
+            if (hi.Node == null)
+            {
+                return;
+            }
+            string nodeName = (string)hi.Node["name"];
+            Control openFileTool = null;
+            try
+            {
+                //如果已经有这个tabPage
+                XtraTabPage ifTabPage = ComponentOperator.IfHasTabPage(nodeName, this.xtraTabControl_Main);
+                if (ifTabPage != null)
+                {
+                    this.xtraTabControl_Main.SelectedTabPage = ifTabPage;
+                    return;
+                }
+                //如果是文件夹，则返回
+                string type = (string)hi.Node["type"];
+                if (type == "Folder")
+                {
+                    return;
+                }
+                //如果文件不存在
+                string path = (string)hi.Node["path"];
+                if (!File.Exists(path))
+                {
+                    MessageBox.Show("文件已丢失，请刷新文件目录后再尝试打开。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+                //如果不包含该TabPage，则新建
+                string extension = (string)hi.Node["ext"];
+                string fileType = ComponentOperator.GetFileTypeByExtension(extension);
+                switch (fileType)
+                {
+                    case "":
+                        if (MessageBox.Show("本系统暂不支持该格式[" + extension + "]的文件，是否尝试使用系统默认程序打开？", "提示", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                        {
+                            System.Diagnostics.Process.Start(path);
+                        }
+                        return;
+                    case "RichTextEdit":
+                        RichEditControl rec = new RichEditControl();
+                        rec.LoadDocument(path);
+                        openFileTool = rec;
+                        break;
+                    case "SpreadSheet"://表格控件
+                        SpreadsheetControl ssc = new SpreadsheetControl();
+                        ssc.LoadDocument(path);
+                        openFileTool = ssc;
+                        break;
+                    case "MapControl":
+                        AxMapControl mapControl = new AxMapControl();
+                        mapControl.BeginInit();     //必须有begin和end
+                        mapControl.Location = new System.Drawing.Point(0, 0);
+                        mapControl.Name = "mapControl";
+                        mapControl.Dock = DockStyle.Fill;
+                        //MapControl不支持先声明，后设置，故而直接设置
+                        XtraTabPage xtp = new XtraTabPage();
+                        xtp.Text = nodeName;
+                        xtp.Controls.Add(mapControl);
+                        mapControl.Dock = DockStyle.Fill;
+                        this.xtraTabControl_Main.TabPages.Add(xtp);
+                        this.xtraTabControl_Main.SelectedTabPage = xtp;
+                        mapControl.EndInit();       //必须有begin和end
+
+                        mapControl.Refresh();
+                        xtp.Refresh();
+                        this.xtraTabControl_Main.Refresh();
+                        this.Refresh();
+
+                        mapControl.LoadMxFile(path);
+                        break;
+                    default:
+                        return;
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.Write(ex.Message);
+            }
+            finally
+            {
+                if (openFileTool != null )
+                {
+                    //TabPage
+                    XtraTabPage xtp = new XtraTabPage();
+                    xtp.Text = nodeName;
+                    xtp.Controls.Add(openFileTool);
+                    openFileTool.Dock = DockStyle.Fill;
+                    this.xtraTabControl_Main.TabPages.Add(xtp);
+                    this.xtraTabControl_Main.SelectedTabPage = xtp;
+
+                    openFileTool.Refresh();
+                    xtp.Refresh();
+                    this.xtraTabControl_Main.Refresh();
+                    this.Refresh();
+                }
+            }
+        }
         #endregion
 
         #region //主显示区事件
+        //TabPage关闭
         private void xtraTabControl_Main_CloseButtonClick(object sender, EventArgs e)
         {            
             try
@@ -241,8 +356,123 @@ namespace CityPlanning
             {
             }
         }
+        //TabPage切换事件
+        private void xtraTabControl_Main_SelectedPageChanged(object sender, TabPageChangedEventArgs e)
+        {            
+            //根据TabPage，选择性显示
+            XtraTabPage tabPage = e.Page;
+            foreach (Control control in tabPage.Controls)
+            {
+                if (control is SpreadsheetControl)
+                {
+                    SpreadsheetControl ssc = (SpreadsheetControl)control;
+                    this.spreadsheetBarController1.SpreadsheetControl = ssc;
+                    this.ribbonPageCategory_xls.Visible = true;
+                    this.ribbonPageCategory_doc.Visible = false;
+                    this.ribbonPageCategory_map.Visible = false;
+                    this.ribbonControl.SelectedPage = this.ribbonPageCategory_xls.Pages[0];
+                    break;
+                }
+                else if (control is RichEditControl)
+                {
+                    RichEditControl rec = (RichEditControl)control;
+                    this.richEditBarController1.RichEditControl = rec;
+                    this.ribbonPageCategory_xls.Visible = false;
+                    this.ribbonPageCategory_doc.Visible = true;
+                    this.ribbonPageCategory_map.Visible = false;
+                    this.ribbonControl.SelectedPage = this.ribbonPageCategory_doc.Pages[0];
+                    break;
+                }
+                else if (control is AxMapControl)
+                {
+                    curAxMapControl = (AxMapControl)control;
+                    this.ribbonPageCategory_xls.Visible = false;
+                    this.ribbonPageCategory_doc.Visible = false;
+                    this.ribbonPageCategory_map.Visible = true;
+                    this.ribbonControl.SelectedPage = this.ribbonPageCategory_map.Pages[0];
+                    break;
+                }
+                else
+                {
+                    //先隐藏所有ribbonPageCategory
+                    this.ribbonControl.SelectedPage = this.homeRibbonPage;
+                    this.ribbonPageCategory_xls.Visible = false;
+                    this.ribbonPageCategory_doc.Visible = false;
+                    this.ribbonPageCategory_map.Visible = false;
+                }
+            }
+        }
+        //TabPage切换函数
+        private void ShowSpecificsRibbonPage(Control _control)
+        {
+            
+        }
         #endregion
+        
+        #region //地图工具按钮事件
+        private void bGalleryOpenMap_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Multiselect = false;    //单选
+            ofd.Title = "选择地图文件";
+            ofd.Filter = "mxd文件|*.mxd";
+            ofd.InitialDirectory = Environment.SpecialFolder.Desktop.ToString();
+            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.Yes)
+            {
+                FileInfo fi = new FileInfo(ofd.FileName);
+                if (fi.Exists)
+                {
+                    curAxMapControl.LoadMxFile(fi.FullName);
+                    curAxMapControl.ActiveView.Refresh();
+                }
+            }
+        }
+        //添加图层
+        private void bMapAddLayer_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            GISTools.AddData(curAxMapControl);
+        }
 
+        private void bMapOutput_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            GISTools.ExportImage(curAxMapControl.ActiveView);
+        }
+        //平移
+        private void bMapPan_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            GISTools.Pan(curAxMapControl);
+        }
+        //放大
+        private void bMapZoomIn_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            GISTools.ZoomIn(curAxMapControl);
+        }
+        //缩小
+        private void bMapZoomOut_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            GISTools.ZoomOut(curAxMapControl);
+        }
+        //全图
+        private void bMapFullExtent_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            GISTools.FullExtend(curAxMapControl);
+        }
+        //逐级放大
+        private void bMapScaleIn_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            GISTools.ZoomInFix(curAxMapControl);
+        }
+        //逐级缩小
+        private void bMapScaleOut_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            GISTools.ZoomOutFix(curAxMapControl);
+        }
 
+        private void bMapQueryByPoint_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+        #endregion
+        
     }
 }

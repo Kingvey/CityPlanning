@@ -272,7 +272,7 @@
             // 
             // txt_ftpIP
             // 
-            this.txt_ftpIP.EditValue = "D:\\dev - Design";
+            this.txt_ftpIP.EditValue = "D:\\Develop\\Data\\CityPlanning";
             this.txt_ftpIP.Location = new System.Drawing.Point(67, 19);
             this.txt_ftpIP.Name = "txt_ftpIP";
             this.txt_ftpIP.Properties.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(241)))), ((int)(((byte)(252)))));
