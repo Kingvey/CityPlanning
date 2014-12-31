@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CityPlanning", "CityPlannin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StatisticChart", "StatisticChart\StatisticChart.csproj", "{3811F98C-B3F2-412C-B099-281808819015}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GISMananer", "GISMananer\GISMananer.csproj", "{A7D5B97E-1019-4C12-820C-8ED1D8FFC75F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GISManager", "GISMananer\GISManager.csproj", "{A7D5B97E-1019-4C12-820C-8ED1D8FFC75F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentManager", "DocumentManager\DocumentManager.csproj", "{E21C1C05-756B-4925-9496-D1AB6AF865E8}"
 EndProject
